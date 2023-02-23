@@ -66,14 +66,17 @@ def f_mineri(adresa,job,adresa_method):
                 response_async = requests.post(adresa_provjere, json = job)
                 if response_async.status_code == 200:
                     provjera_json = response_async.text#response_async.json()
+                    #print(provjera_json)
                     r = json.loads(provjera_json)
                     r_status = r.get('status')
                     if r_status == 'end':
                         r_nonce = r.get('nonce')
                         r_result = r.get('result')
                         r_job_id = r.get('job_id')
+                        p_server = r.get('server')
+                        p_hashrate = r.get('hashrate')
                         list1=[]
-                        dict1= {'nonce': r_nonce, 'result': r_result,'job_id': r_job_id}
+                        dict1= {'nonce': r_nonce, 'result': r_result,'job_id': r_job_id, 'server': p_server, 'hashrate': p_hashrate}
                         list1.append(dict1)
                         if r_nonce != '0':
                             ad = adresa.split('/RandomX')[0] + '/RandomX'
@@ -82,6 +85,12 @@ def f_mineri(adresa,job,adresa_method):
                         break
                 else:
                     print('Greska: ' + adresa_provjere + '\n' + response.text)
+                    list1=[]
+                    dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                    list1.append(dict1)
+                    return list1
+                    break
+                if os.environ["status"] == 'stop':
                     list1=[]
                     dict1= {'nonce': '0', 'result': '0','job_id': '0'}
                     list1.append(dict1)
@@ -213,6 +222,7 @@ def main():
                         pool.close()            
             s.close()
             if os.environ["status"] == 'stop':
+                print('Mining je stopiran.')
                 break
     except KeyboardInterrupt:
         print('{}Exiting'.format(os.linesep))
@@ -278,6 +288,7 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
     for d in req_json["adrese"]:
         adrese.append([d.get('url'),d.get('method')])
     os.environ["status"] = 'start'
+    print('Mining je pokrenut.')
     background_tasks.add_task(main)
     return adrese
 
