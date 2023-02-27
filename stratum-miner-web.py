@@ -102,7 +102,7 @@ def f_mineri(adresa,job,adresa_method):
                         list1.append(dict1)
                         return list1
                         break
-                else
+                else:
                     time.sleep(1)
         else:
             print('Greska: ' + adresa_provjere + '\n' + response.text)
