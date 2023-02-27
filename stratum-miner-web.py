@@ -62,7 +62,7 @@ def f_mineri(adresa,job,adresa_method):
             arr_adrese = adresa.split('/RandomX')
             #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
  
-            if adresa.split('/RandomX')[0] == adrese[0].split('/RandomX')[0]:
+            if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
                 adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                 
 
