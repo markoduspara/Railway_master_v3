@@ -101,6 +101,11 @@ def f_mineri(adresa,job,adresa_method):
                         list1.append(dict1)
                         return list1
                         break
+            else:
+                list1=[]
+                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                list1.append(dict1)
+                return list1
         else:
             print('Greska: ' + adresa_provjere + '\n' + response.text)
             list1=[]
