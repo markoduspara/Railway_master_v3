@@ -68,7 +68,7 @@ def f_mineri(adresa,job,adresa_method):
 
                 while 1:
                     time.sleep(1)
-                    response_async = requests.post(adresa_provjere, json = {'broj_servera': broj_servera})
+                    response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)})
                     if response_async.status_code == 200:
                         provjera_json = response_async.text#response_async.json()
                         #print(provjera_json)
