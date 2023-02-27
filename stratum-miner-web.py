@@ -62,9 +62,10 @@ def f_mineri(adresa,job,adresa_method):
         if response.status_code == 200:
             arr_adrese = adresa.split('/RandomX')
             #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
-            if bool_hf == False:
+           global bool_hf 
+           if bool_hf == False:
                 adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
-                global bool_hf
+                
                 bool_hf = True
                 while 1:
                     time.sleep(1)
