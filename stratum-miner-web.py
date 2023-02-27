@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, Request, BackgroundTasks
 
 import socket
@@ -62,7 +61,7 @@ def f_mineri(adresa,job,adresa_method):
             arr_adrese = adresa.split('/RandomX')
             adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
             while 1:
-                time.sleep(5)
+                time.sleep(1)
                 response_async = requests.post(adresa_provjere, json = job)
                 if response_async.status_code == 200:
                     provjera_json = response_async.text#response_async.json()
@@ -96,7 +95,13 @@ def f_mineri(adresa,job,adresa_method):
                     list1.append(dict1)
                     return list1
                     break
-
+        else:
+            print('Greska: ' + adresa_provjere + '\n' + response.text)
+            list1=[]
+            dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+            list1.append(dict1)
+            return list1
+                    
 
     else:
         list1=[]
@@ -306,5 +311,3 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7860)
-    
-
