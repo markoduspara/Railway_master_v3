@@ -23,8 +23,7 @@ wallet_address = ''
 nicehash = False
 adrese=[]
 duration=60
-bool_hf = False
-broj_servera=0
+
 
 
 def zaustavi_asyc_minere(adresa,hash,nonce):
@@ -62,11 +61,11 @@ def f_mineri(adresa,job,adresa_method):
         if response.status_code == 200:
             arr_adrese = adresa.split('/RandomX')
             #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
-           global bool_hf 
-           if bool_hf == False:
+ 
+            if adresa.split('/RandomX')[0] == adrese[0].split('/RandomX')[0]:
                 adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                 
-                bool_hf = True
+
                 while 1:
                     time.sleep(1)
                     response_async = requests.post(adresa_provjere, json = {'broj_servera': broj_servera})
@@ -288,7 +287,6 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
     p_pool_pass = req_json['pool_pass']
     p_wallet_address = req_json['wallet_address']
     p_duration = int(req_json['duration'])
-    p_broj_servera = int(req_json['broj_servera'])
     p_adrese = req_json['adrese']
     global pool_host,pool_port,pool_pass,wallet_address,duration, adrese
     pool_host =p_pool_host
@@ -296,7 +294,6 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
     pool_pass =p_pool_pass
     wallet_address =p_wallet_address
     duration =p_duration
-    broj_servera = p_broj_servera
     adrese=[]
  
     for d in req_json["adrese"]:
