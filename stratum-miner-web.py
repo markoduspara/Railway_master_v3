@@ -131,13 +131,13 @@ def main():
                 'params': {
                     'login': wallet_address,
                     'pass': pool_pass,
-                    'rigid': '',
+                    'rigid': 'HF',
                     'agent': 'stratum-miner-py/0.1'
                 },
                 'id':1
             }
             print('Logging into pool: {}:{}'.format(pool_host, pool_port))
-            print('Using NiceHash mode: {}'.format(nicehash))
+            #print('Using NiceHash mode: {}'.format(nicehash))
             s.sendall(str(json.dumps(login)+'\n').encode('utf-8'))
             #pool = Pool(processes=4)
             line = s.makefile().readline()
@@ -175,7 +175,7 @@ def main():
                     p_job_id='0'
                     with ThreadPool(processes=len(adrese)+1) as pool:
                         for result1 in pool.imap_unordered(worker, adrese_final):
-                            
+                            print(time.ctime(time.time()))
                             print(f'Got result: {result1}', flush=True)
                             p_nonce=result1[0].get('nonce')
                             p_result=result1[0].get('result')
@@ -191,10 +191,10 @@ def main():
                                     },
                                     'id':1
                                 }
-                                print(submit)
+                                #print(submit)
                                 s.sendall(str(json.dumps(submit)+'\n').encode('utf-8'))
                                 select.select([s], [], [], 3)
-                                break
+                            break
                         pool.terminate()
                         pool.close()
                                             
@@ -211,7 +211,7 @@ def main():
                     p_job_id='0'
                     with ThreadPool(processes=len(adrese)+1) as pool:
                         for result1 in pool.imap_unordered(worker, adrese_final):
-                            
+                            print(time.ctime(time.time()))
                             print(f'Got result: {result1}', flush=True)
                             p_nonce=result1[0].get('nonce')
                             p_result=result1[0].get('result')
@@ -228,10 +228,10 @@ def main():
                                     },
                                     'id':1
                                 }
-                                print(submit)
+                                #print(submit)
                                 s.sendall(str(json.dumps(submit)+'\n').encode('utf-8'))
                                 select.select([s], [], [], 3)
-                                break
+                            break
                         pool.terminate()
                         pool.close()            
             s.close()
@@ -254,7 +254,7 @@ def worker(q):
     s=q[2]
     a=q[0]
     adresa_method=q[3]
-    print(a)
+    #print(a)
     #while 1:
     job = q[1]#q.get()
     #print(job)
@@ -316,6 +316,12 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
     p_duration = int(req_json['duration'])
     p_adrese = req_json['adrese']
     os.environ["status"] = 'stop'
+    j = {'hash': '0', 'nonce': '0'}
+    for a in adrese:
+        
+        arr_adrese = a[0].split('/RandomX')
+        adresa_stop = arr_adrese[0] + '/RandomXstop'
+        response = requests.post(adresa_stop, json = j)
     return 'stoped'
 
 if __name__ == '__main__':
