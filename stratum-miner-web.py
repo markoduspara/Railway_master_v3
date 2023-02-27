@@ -62,11 +62,12 @@ def f_mineri(adresa,job,adresa_method):
             arr_adrese = adresa.split('/RandomX')
             #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
  
-            if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
-                adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
+            
                 
 
-                while 1:
+            while 1:
+                if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
+                    adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     time.sleep(1)
                     response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)})
                     if response_async.status_code == 200:
@@ -101,11 +102,8 @@ def f_mineri(adresa,job,adresa_method):
                         list1.append(dict1)
                         return list1
                         break
-            else:
-                list1=[]
-                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-                list1.append(dict1)
-                return list1
+                else
+                    time.sleep(1)
         else:
             print('Greska: ' + adresa_provjere + '\n' + response.text)
             list1=[]
