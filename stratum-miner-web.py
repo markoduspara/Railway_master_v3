@@ -70,7 +70,7 @@ def f_mineri(adresa,job,adresa_method):
             while 1:
                 if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
-                    time.sleep(0.5)
+                    time.sleep(1)
                     response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)})
                     if response_async.status_code == 200:
                         provjera_json = response_async.text#response_async.json()
