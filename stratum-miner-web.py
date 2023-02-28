@@ -23,6 +23,8 @@ wallet_address = ''
 nicehash = False
 adrese=[]
 duration=60
+adresa_provjere=''
+rigid=''
 
 
 
@@ -67,7 +69,7 @@ def f_mineri(adresa,job,adresa_method):
 
             while 1:
                 if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
-                    adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
+                    #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     time.sleep(1)
                     response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)})
                     if response_async.status_code == 200:
@@ -84,9 +86,9 @@ def f_mineri(adresa,job,adresa_method):
                             list1=[]
                             dict1= {'nonce': r_nonce, 'result': r_result,'job_id': r_job_id, 'server': p_server, 'hashrate': p_hashrate}
                             list1.append(dict1)
-                            if r_nonce != '0':
-                                ad = adresa.split('/RandomX')[0] + '/RandomX'
-                                zaustavi_asyc_minere(ad,r_result,r_nonce)
+                            #if r_nonce != '0':
+                            #    ad = adresa.split('/RandomX')[0] + '/RandomX'
+                            #    zaustavi_asyc_minere(ad,r_result,r_nonce)
                             return list1
                             break
                     else:
@@ -135,7 +137,7 @@ def main():
                 'params': {
                     'login': wallet_address,
                     'pass': pool_pass,
-                    'rigid': 'HF',
+                    'rigid': rigid,
                     'agent': 'stratum-miner-py/0.1'
                 },
                 'id':1
@@ -294,14 +296,18 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
     p_pool_port = int(req_json['pool_port'])
     p_pool_pass = req_json['pool_pass']
     p_wallet_address = req_json['wallet_address']
+    p_adresa_provjere = req_json['adresa_provjere']
+    p_rigid = req_json['rigid']
     p_duration = int(req_json['duration'])
     p_adrese = req_json['adrese']
-    global pool_host,pool_port,pool_pass,wallet_address,duration, adrese
+    global pool_host,pool_port,pool_pass,wallet_address,duration, adrese,adresa_provjere,rigid
     pool_host =p_pool_host
     pool_port =p_pool_port
     pool_pass =p_pool_pass
     wallet_address =p_wallet_address
     duration =p_duration
+    adresa_provjere=p_adresa_provjere
+    rigid=p_rigid
     adrese=[]
  
     for d in req_json["adrese"]:
