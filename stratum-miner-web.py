@@ -179,12 +179,13 @@ def main():
                     p_job_id='0'
                     with ThreadPool(processes=len(adrese)+1) as pool:
                         for result1 in pool.imap_unordered(worker, adrese_final):
-                            print(time.ctime(time.time()))
-                            print(f'Got result: {result1}', flush=True)
+                            
                             p_nonce=result1[0].get('nonce')
                             p_result=result1[0].get('result')
                             p_job_id=result1[0].get('job_id')
                             if p_nonce != '0':
+                                print(time.ctime(time.time()))
+                                print(f'Got result: {result1}', flush=True)
                                 submit = {
                                     'method':'submit',
                                     'params': {
@@ -215,13 +216,13 @@ def main():
                     p_job_id='0'
                     with ThreadPool(processes=len(adrese)+1) as pool:
                         for result1 in pool.imap_unordered(worker, adrese_final):
-                            print(time.ctime(time.time()))
-                            print(f'Got result: {result1}', flush=True)
+                            
                             p_nonce=result1[0].get('nonce')
                             p_result=result1[0].get('result')
                             p_job_id=result1[0].get('job_id')
                             if p_nonce != '0':
-                                
+                                print(time.ctime(time.time()))
+                                print(f'Got result: {result1}', flush=True)
                                 submit = {
                                     'method':'submit',
                                     'params': {
