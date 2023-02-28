@@ -103,7 +103,11 @@ def f_mineri(adresa,job,adresa_method):
                         return list1
                         break
                 else:
-                    time.sleep(1)
+                    ist1=[]
+                    dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                    list1.append(dict1)
+                    return list1
+                    break
         else:
             print('Greska: ' + adresa + '\n' + response.text)
             list1=[]
@@ -194,7 +198,7 @@ def main():
                                 #print(submit)
                                 s.sendall(str(json.dumps(submit)+'\n').encode('utf-8'))
                                 select.select([s], [], [], 3)
-                            break
+                                break
                         pool.terminate()
                         pool.close()
                                             
@@ -231,7 +235,7 @@ def main():
                                 #print(submit)
                                 s.sendall(str(json.dumps(submit)+'\n').encode('utf-8'))
                                 select.select([s], [], [], 3)
-                            break
+                                break
                         pool.terminate()
                         pool.close()            
             s.close()
