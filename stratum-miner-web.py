@@ -59,7 +59,7 @@ def f_mineri(adresa,job,adresa_method):
             list1.append(dict1)
             return list1
     elif adresa_method == 'async':
-        proxy = get_proxy(rand=True, verify=True)
+        proxy = get_proxy(verify=True)
         #print(proxy.requests_dict)
         proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
         'https': 'http://' + proxy.ip + ':' + proxy.port
@@ -76,7 +76,7 @@ def f_mineri(adresa,job,adresa_method):
                 if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     time.sleep(1)
-                    response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)})
+                    response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)},proxies=proxies)
                     if response_async.status_code == 200:
                         provjera_json = response_async.text#response_async.json()
                         #print(provjera_json)
