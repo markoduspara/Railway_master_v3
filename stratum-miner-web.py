@@ -339,6 +339,5 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
         adresa_stop = arr_adrese[0] + '/RandomXstop'
         #response = requests.post(adresa_stop, json = j)
     return 'stoped'
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7860)
