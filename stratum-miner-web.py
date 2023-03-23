@@ -61,9 +61,9 @@ def f_mineri(adresa,job,adresa_method):
     elif adresa_method == 'async':
         proxy = get_proxy(rand=True, verify=True)
         #print(proxy.requests_dict)
-       proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
-       'https': 'http://' + proxy.ip + ':' + proxy.port
-       }
+        proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
+        'https': 'http://' + proxy.ip + ':' + proxy.port
+        }
         response = requests.post(adresa, json = job,proxies=proxies)
         if response.status_code == 200:
             arr_adrese = adresa.split('/RandomX')
@@ -342,6 +342,3 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7860)
-
-
-
