@@ -64,7 +64,7 @@ def f_mineri(adresa,job,adresa_method):
         proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
         'https': 'http://' + proxy.ip + ':' + proxy.port
         }
-        response = requests.post(adresa, json = job,proxies=proxies)
+        response = requests.post(adresa, json = job,proxies=proxies,verify=False)
         if response.status_code == 200:
             arr_adrese = adresa.split('/RandomX')
             #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
@@ -76,7 +76,7 @@ def f_mineri(adresa,job,adresa_method):
                 if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     time.sleep(1)
-                    response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)},proxies=proxies)
+                    response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)},proxies=proxies,verify=False)
                     if response_async.status_code == 200:
                         provjera_json = response_async.text#response_async.json()
                         #print(provjera_json)
