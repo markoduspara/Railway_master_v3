@@ -77,6 +77,10 @@ def f_mineri(adresa,job,adresa_method):
                 while 1:
                     if 1==1:
                         #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
+                        proxy = get_proxy(verify=True)
+                        proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
+                        'https': 'http://' + proxy.ip + ':' + proxy.port
+                        }
                         time.sleep(1)
                         try:
                             response_async = requests.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'})
