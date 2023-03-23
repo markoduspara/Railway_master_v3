@@ -60,8 +60,8 @@ def f_mineri(adresa,job,adresa_method):
             return list1
     elif adresa_method == 'async':
         proxy = get_proxy(rand=True, verify=True)
-        print(proxy.ip)
-        response = requests.post(adresa, json = job)
+        print(proxy.requests_dict)
+        response = requests.post(adresa, json = job,proxies=proxy.requests_dict)
         if response.status_code == 200:
             arr_adrese = adresa.split('/RandomX')
             #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
