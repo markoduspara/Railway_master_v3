@@ -77,7 +77,7 @@ def f_mineri(adresa,job,adresa_method):
         session.mount('https://', TLSAdapter())
         #res = session.get(url)
         try:
-            response = session.post(adresa, json = job,proxies=proxies,headers={'User-Agent': 'Chrome'},verify=False)
+            response = session.post(adresa, json = job,proxies=proxies,headers={'User-Agent': 'Chrome'})
         
             if response.status_code == 200:
                 #arr_adrese = adresa.split('/RandomX')
@@ -97,7 +97,7 @@ def f_mineri(adresa,job,adresa_method):
                         session = requests.session()
                         session.mount('https://', TLSAdapter())
                         try:
-                            response_async = session.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'},verify=False)
+                            response_async = session.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'})
                         
                             if response_async.status_code == 200:
                                 provjera_json = response_async.text#response_async.json()
