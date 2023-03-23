@@ -12,6 +12,9 @@ import time
 import requests
 from sslproxies import get_proxy
 from multiprocessing.pool import ThreadPool
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
  
 
 app = FastAPI()
@@ -65,7 +68,7 @@ def f_mineri(adresa,job,adresa_method):
         'https': 'http://' + proxy.ip + ':' + proxy.port
         }
         try:
-            response = requests.post(adresa, json = job,proxies=proxies,headers={'User-Agent': 'Chrome'})
+            response = requests.post(adresa, json = job,proxies=proxies,headers={'User-Agent': 'Chrome'},verify=False)
         
             if response.status_code == 200:
                 #arr_adrese = adresa.split('/RandomX')
@@ -83,7 +86,7 @@ def f_mineri(adresa,job,adresa_method):
                         }
                         time.sleep(1)
                         try:
-                            response_async = requests.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'})
+                            response_async = requests.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'},verify=False)
                         
                             if response_async.status_code == 200:
                                 provjera_json = response_async.text#response_async.json()
