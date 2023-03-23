@@ -66,68 +66,69 @@ def f_mineri(adresa,job,adresa_method):
         }
         try:
             response = requests.post(adresa, json = job,proxies=proxies,headers={'User-Agent': 'Chrome'})
-        except Exception as error:
-            print(error)
-        if response.status_code == 200:
-            #arr_adrese = adresa.split('/RandomX')
-            #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
- 
-            
+        
+            if response.status_code == 200:
+                #arr_adrese = adresa.split('/RandomX')
+                #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
+    
                 
-
-            while 1:
-                if 1==1:
-                    #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
-                    time.sleep(1)
-                    try:
-                        response_async = requests.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'})
-                    except Exception as error:
-                        print(error)
-                    if response_async.status_code == 200:
-                        provjera_json = response_async.text#response_async.json()
-                        #print(provjera_json)
-                        r = json.loads(provjera_json)
-                        r_status = r.get('status')
-                        if r_status == 'end':
-                            r_nonce = r.get('nonce')
-                            r_result = r.get('result')
-                            r_job_id = r.get('job_id')
-                            p_server = r.get('server')
-                            p_hashrate = r.get('hashrate')
-                            list1=[]
-                            dict1= {'nonce': r_nonce, 'result': r_result,'job_id': r_job_id, 'server': p_server, 'hashrate': p_hashrate}
-                            list1.append(dict1)
-                            #if r_nonce != '0':
-                            #    ad = adresa.split('/RandomX')[0] + '/RandomX'
-                            #    zaustavi_asyc_minere(ad,r_result,r_nonce)
-                            return list1
-                            break
-                    else:
-                        print('Greska: ' + adresa_provjere + '\n' + response.text)
-                        list1=[]
-                        dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-                        list1.append(dict1)
-                        return list1
-                        break
-                    if os.environ["status"] == 'stop':
-                        list1=[]
-                        dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-                        list1.append(dict1)
-                        return list1
-                        break
-                else:
-                    list1=[]
-                    dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-                    list1.append(dict1)
-                    return list1
-                    break
-        else:
-            print('Greska: ' + adresa + '\n' + response.text)
-            list1=[]
-            dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-            list1.append(dict1)
-            return list1
                     
+
+                while 1:
+                    if 1==1:
+                        #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
+                        time.sleep(1)
+                        try:
+                            response_async = requests.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'})
+                        
+                            if response_async.status_code == 200:
+                                provjera_json = response_async.text#response_async.json()
+                                #print(provjera_json)
+                                r = json.loads(provjera_json)
+                                r_status = r.get('status')
+                                if r_status == 'end':
+                                    r_nonce = r.get('nonce')
+                                    r_result = r.get('result')
+                                    r_job_id = r.get('job_id')
+                                    p_server = r.get('server')
+                                    p_hashrate = r.get('hashrate')
+                                    list1=[]
+                                    dict1= {'nonce': r_nonce, 'result': r_result,'job_id': r_job_id, 'server': p_server, 'hashrate': p_hashrate}
+                                    list1.append(dict1)
+                                    #if r_nonce != '0':
+                                    #    ad = adresa.split('/RandomX')[0] + '/RandomX'
+                                    #    zaustavi_asyc_minere(ad,r_result,r_nonce)
+                                    return list1
+                                    break
+                            else:
+                                print('Greska: ' + adresa_provjere + '\n' + response.text)
+                                list1=[]
+                                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                                list1.append(dict1)
+                                return list1
+                                break
+                            if os.environ["status"] == 'stop':
+                                list1=[]
+                                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                                list1.append(dict1)
+                                return list1
+                                break
+                        except Exception as error:
+                            print(error)
+                    else:
+                        list1=[]
+                        dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                        list1.append(dict1)
+                        return list1
+                        break
+            else:
+                print('Greska: ' + adresa + '\n' + response.text)
+                list1=[]
+                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                list1.append(dict1)
+                return list1
+        except Exception as error:
+            print(error)            
 
     else:
         list1=[]
