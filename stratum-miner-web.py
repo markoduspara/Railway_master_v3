@@ -66,17 +66,17 @@ def f_mineri(adresa,job,adresa_method):
         #}
         response = requests.post(adresa, json = job)
         if response.status_code == 200:
-            arr_adrese = adresa.split('/RandomX')
+            #arr_adrese = adresa.split('/RandomX')
             #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
  
             
                 
 
             while 1:
-                if adresa.split('/RandomX')[0] == adrese[0][0].split('/RandomX')[0]:
+                if 1==1:
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     time.sleep(1)
-                    response_async = requests.post(adresa_provjere, json = {'broj_servera': len(adrese)})
+                    response_async = requests.post(adresa_provjere, json = {'broj_servera': 32})
                     if response_async.status_code == 200:
                         provjera_json = response_async.text#response_async.json()
                         #print(provjera_json)
@@ -337,7 +337,7 @@ async def proc_post(request : Request,background_tasks: BackgroundTasks):
         
         arr_adrese = a[0].split('/RandomX')
         adresa_stop = arr_adrese[0] + '/RandomXstop'
-        response = requests.post(adresa_stop, json = j)
+        #response = requests.post(adresa_stop, json = j)
     return 'stoped'
 
 if __name__ == '__main__':
