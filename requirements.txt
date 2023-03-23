@@ -21,4 +21,5 @@ yarl==1.8.2
 #gunicorn
 fastapi
 uvicorn
+sslproxies
 #sqlalchemy
