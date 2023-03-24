@@ -65,8 +65,8 @@ def f_mineri(adresa,job,adresa_method):
         v1=1
         while v1==1:
 
-            #proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
-            proxy = get_proxy(verify=True)
+            proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
+            #proxy = get_proxy(verify=True)
             proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
             'https': 'http://' + proxy.ip + ':' + proxy.port
             }
@@ -91,8 +91,8 @@ def f_mineri(adresa,job,adresa_method):
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     v2=1
                     while v2==1:
-                        #proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
-                        proxy = get_proxy(verify=True)
+                        proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
+                        #proxy = get_proxy(verify=True)
                         proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
                         'https': 'http://' + proxy.ip + ':' + proxy.port
                         }
