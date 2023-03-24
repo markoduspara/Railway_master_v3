@@ -13,14 +13,8 @@ import requests
 from sslproxies import get_proxy
 from multiprocessing.pool import ThreadPool
 import ssl
+cert="/app/cert.pem"
 
-class TLSAdapter(requests.adapters.HTTPAdapter):
-
-    def init_poolmanager(self, *args, **kwargs):
-        ctx = ssl.create_default_context()
-        ctx.set_ciphers('DEFAULT@SECLEVEL=1')
-        kwargs['ssl_context'] = ctx
-        return super(TLSAdapter, self).init_poolmanager(*args, **kwargs)
  
 
 app = FastAPI()
@@ -68,85 +62,101 @@ def f_mineri(adresa,job,adresa_method):
             list1.append(dict1)
             return list1
     elif adresa_method == 'async':
-        proxy = get_proxy(verify=True)
-        #print(proxy.requests_dict)
-        proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
-        'https': 'http://' + proxy.ip + ':' + proxy.port
-        }
-        session = requests.session()
-        session.mount('https://', TLSAdapter())
-        #res = session.get(url)
-        try:
-            response = session.post(adresa, json = job,proxies=proxies,headers={'User-Agent': 'Chrome'})
-        
-            if response.status_code == 200:
-                #arr_adrese = adresa.split('/RandomX')
-                #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
-    
-                
-                    
+        v1=1
+        while v1==1:
 
-                while 1:
-                    if 1==1:
-                        #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
-                        proxy = get_proxy(verify=True)
+            proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
+
+            proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
+            'https': 'http://' + proxy.ip + ':' + proxy.port
+            }
+            
+            #print("slanje")
+            try:
+                response = requests.post(adresa, json = job,proxies=proxies,verify=cert)
+                v1=0
+            except Exception as error:
+                pass
+
+        if response.status_code == 200:
+            #arr_adrese = adresa.split('/RandomX')
+            #adresa_provjere = arr_adrese[0] + '/RandomXprovjeri'
+            c=1
+            
+                
+
+            while 1:
+                c+=1
+                if c<60:
+                    #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
+                    v2=1
+                    while v2==1:
+                        proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
                         proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
                         'https': 'http://' + proxy.ip + ':' + proxy.port
                         }
                         time.sleep(1)
-                        session = requests.session()
-                        session.mount('https://', TLSAdapter())
+                        #session = requests.session()
+                        #session.mount('https://', TLSAdapter())
+                        #print("{} c procjera".format(str(c)))
                         try:
-                            response_async = session.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,headers={'User-Agent': 'Chrome'})
-                        
-                            if response_async.status_code == 200:
-                                provjera_json = response_async.text#response_async.json()
-                                #print(provjera_json)
-                                r = json.loads(provjera_json)
-                                r_status = r.get('status')
-                                if r_status == 'end':
-                                    r_nonce = r.get('nonce')
-                                    r_result = r.get('result')
-                                    r_job_id = r.get('job_id')
-                                    p_server = r.get('server')
-                                    p_hashrate = r.get('hashrate')
-                                    list1=[]
-                                    dict1= {'nonce': r_nonce, 'result': r_result,'job_id': r_job_id, 'server': p_server, 'hashrate': p_hashrate}
-                                    list1.append(dict1)
-                                    #if r_nonce != '0':
-                                    #    ad = adresa.split('/RandomX')[0] + '/RandomX'
-                                    #    zaustavi_asyc_minere(ad,r_result,r_nonce)
-                                    return list1
-                                    break
-                            else:
-                                print('Greska: ' + adresa_provjere + '\n' + response.text)
-                                list1=[]
-                                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-                                list1.append(dict1)
-                                return list1
-                                break
-                            if os.environ["status"] == 'stop':
-                                list1=[]
-                                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-                                list1.append(dict1)
-                                return list1
-                                break
+                            response_async = requests.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,verify=cert)
+                            v2=0
                         except Exception as error:
-                            print(error)
+                            pass
+                            
+                    if response_async.status_code == 200:
+                        provjera_json = response_async.text#response_async.json()
+                        #print(provjera_json)
+                        r = json.loads(provjera_json)
+                        r_status = r.get('status')
+                        if r_status == 'end':
+                            r_nonce = r.get('nonce')
+                            r_result = r.get('result')
+                            r_job_id = r.get('job_id')
+                            p_server = r.get('server')
+                            p_hashrate = r.get('hashrate')
+                            list1=[]
+                            dict1= {'nonce': r_nonce, 'result': r_result,'job_id': r_job_id, 'server': p_server, 'hashrate': p_hashrate}
+                            list1.append(dict1)
+                            #if r_nonce != '0':
+                            #    ad = adresa.split('/RandomX')[0] + '/RandomX'
+                            #    zaustavi_asyc_minere(ad,r_result,r_nonce)
+                            return list1
+                            break
                     else:
+                        print('Greska: ' + adresa_provjere + '\n' + response.text)
                         list1=[]
                         dict1= {'nonce': '0', 'result': '0','job_id': '0'}
                         list1.append(dict1)
                         return list1
                         break
-            else:
-                print('Greska: ' + adresa + '\n' + response.text)
-                list1=[]
-                dict1= {'nonce': '0', 'result': '0','job_id': '0'}
-                list1.append(dict1)
-                return list1
-        except Exception as error:
-            print(error)            
+                    if os.environ["status"] == 'stop':
+                        list1=[]
+                        dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                        list1.append(dict1)
+                        return list1
+                        break
+                    
+                else:
+                    list1=[]
+                    dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+                    list1.append(dict1)
+                    return list1
+                    break
+                
+        else:
+            print('Greska: ' + adresa + '\n' + response.text)
+            list1=[]
+            dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+            list1.append(dict1)
+            return list1
+        #except Exception as error:
+        #    print(error)
+        #    list1=[]
+        #    dict1= {'nonce': '0', 'result': '0','job_id': '0'}
+        #    list1.append(dict1)
+        #    return list1            
 
     else:
         list1=[]
@@ -172,7 +182,7 @@ def main():
                 },
                 'id':1
             }
-            print('Logging into pool: {}:{}'.format(pool_host, pool_port))
+            #print('Logging into pool: {}:{}'.format(pool_host, pool_port))
             #print('Using NiceHash mode: {}'.format(nicehash))
             s.sendall(str(json.dumps(login)+'\n').encode('utf-8'))
             #pool = Pool(processes=4)
@@ -182,7 +192,7 @@ def main():
                 print(line)
             else:
                 
-                print(time.ctime(time.time()))
+                print("Start: " + time.ctime(time.time()))
                 #print(line)
                         
                 r = json.loads(line)
@@ -193,8 +203,8 @@ def main():
                 if error:
                     print('Error: {}'.format(error))
                     continue
-                if result and result.get('status'):
-                    print('Status: {}'.format(result.get('status')))
+                #if result and result.get('status'):
+                    #print('Status: {}'.format(result.get('status')))
                 if result and result.get('job'):
                     #print('job')
                     login_id = result.get('id')
@@ -216,8 +226,9 @@ def main():
                             p_result=result1[0].get('result')
                             p_job_id=result1[0].get('job_id')
                             if p_nonce != '0':
-                                print(time.ctime(time.time()))
+                                
                                 print(f'Got result: {result1}', flush=True)
+                                
                                 submit = {
                                     'method':'submit',
                                     'params': {
@@ -231,6 +242,7 @@ def main():
                                 #print(submit)
                                 s.sendall(str(json.dumps(submit)+'\n').encode('utf-8'))
                                 select.select([s], [], [], 3)
+                                print("End: " + time.ctime(time.time()))
                                 break
                         pool.terminate()
                         pool.close()
