@@ -67,7 +67,7 @@ def f_mineri(adresa,job,adresa_method):
             proxy1=None
             while proxy1==None:
                 
-                    proxy1 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True)
+                    proxy1 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True,timeout=2)
                 
                     #proxy1 = get_proxy(verify=True)
             proxies = {'http': 'http://' + proxy1.ip + ':' + proxy1.port,
@@ -96,7 +96,7 @@ def f_mineri(adresa,job,adresa_method):
                     while v2==1:
                         proxy2=None
                         while proxy2==None:
-                            proxy2 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True)
+                            proxy2 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True,timeout=2)
                             #proxy2 = get_proxy(verify=True)
                         proxies = {'http': 'http://' + proxy2.ip + ':' + proxy2.port,
                         'https': 'http://' + proxy2.ip + ':' + proxy2.port
