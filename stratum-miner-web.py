@@ -64,11 +64,14 @@ def f_mineri(adresa,job,adresa_method):
     elif adresa_method == 'async':
         v1=1
         while v1==1:
-
-            proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
-            #proxy = get_proxy(verify=True)
-            proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
-            'https': 'http://' + proxy.ip + ':' + proxy.port
+            proxy1=None
+            while proxy1==None:
+                
+                    proxy1 = get_proxy(countries=['US', 'DE','IT','GB','FR','CZ'],verify=True)
+                
+                #proxy = get_proxy(verify=True)
+            proxies = {'http': 'http://' + proxy1.ip + ':' + proxy1.port,
+            'https': 'http://' + proxy1.ip + ':' + proxy1.port
             }
             
             #print("slanje")
@@ -91,10 +94,12 @@ def f_mineri(adresa,job,adresa_method):
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     v2=1
                     while v2==1:
-                        proxy = get_proxy(countries=['US', 'DE','IT','GB'],verify=True)
+                        proxy2=None
+                        while proxy2==None:
+                            proxy2 = get_proxy(countries=['US', 'DE','IT','GB','FR','CZ'],verify=True)
                         #proxy = get_proxy(verify=True)
-                        proxies = {'http': 'http://' + proxy.ip + ':' + proxy.port,
-                        'https': 'http://' + proxy.ip + ':' + proxy.port
+                        proxies = {'http': 'http://' + proxy2.ip + ':' + proxy2.port,
+                        'https': 'http://' + proxy2.ip + ':' + proxy2.port
                         }
                         time.sleep(1)
                         #session = requests.session()
