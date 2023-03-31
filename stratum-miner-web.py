@@ -65,18 +65,18 @@ def f_mineri(adresa,job,adresa_method):
         v1=1
         while v1==1:
             proxy1=None
-            while proxy1==None:
+            #while proxy1==None:
                 
-                    proxy1 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True,timeout=2)
+            #        proxy1 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True,timeout=2)
                 
                     #proxy1 = get_proxy(verify=True)
-            proxies = {'http': 'http://' + proxy1.ip + ':' + proxy1.port,
-            'https': 'http://' + proxy1.ip + ':' + proxy1.port
-            }
+            #proxies = {'http': 'http://' + proxy1.ip + ':' + proxy1.port,
+            #'https': 'http://' + proxy1.ip + ':' + proxy1.port
+            #}
             
             #print("slanje")
             try:
-                response = requests.post(adresa, json = job,proxies=proxies,verify=cert)
+                response = requests.post(adresa, json = job)#,proxies=proxies,verify=cert)
                 v1=0
             except Exception as error:
                 pass
@@ -94,19 +94,19 @@ def f_mineri(adresa,job,adresa_method):
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     v2=1
                     while v2==1:
-                        proxy2=None
-                        while proxy2==None:
-                            proxy2 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True,timeout=2)
+                        #proxy2=None
+                        #while proxy2==None:
+                        #    proxy2 = get_proxy(countries=['CA','US', 'DE','IT','GB','FR','CZ'],verify=True,timeout=2)
                             #proxy2 = get_proxy(verify=True)
-                        proxies = {'http': 'http://' + proxy2.ip + ':' + proxy2.port,
-                        'https': 'http://' + proxy2.ip + ':' + proxy2.port
-                        }
-                        time.sleep(1)
+                        #proxies = {'http': 'http://' + proxy2.ip + ':' + proxy2.port,
+                        #'https': 'http://' + proxy2.ip + ':' + proxy2.port
+                        #}
+                        #time.sleep(1)
                         #session = requests.session()
                         #session.mount('https://', TLSAdapter())
                         #print("{} c procjera".format(str(c)))
                         try:
-                            response_async = requests.post(adresa_provjere, json = {'broj_servera': 32},proxies=proxies,verify=cert)
+                            response_async = requests.post(adresa_provjere, json = {'broj_servera': 32})#,proxies=proxies,verify=cert)
                             v2=0
                         except Exception as error:
                             pass
