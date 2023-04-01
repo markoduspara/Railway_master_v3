@@ -101,7 +101,7 @@ def f_mineri(adresa,job,adresa_method):
                         #proxies = {'http': 'http://' + proxy2.ip + ':' + proxy2.port,
                         #'https': 'http://' + proxy2.ip + ':' + proxy2.port
                         #}
-                        #time.sleep(1)
+                        time.sleep(1)
                         #session = requests.session()
                         #session.mount('https://', TLSAdapter())
                         #print("{} c procjera".format(str(c)))
