@@ -41,7 +41,7 @@ def zaustavi_asyc_minere(adresa,hash,nonce):
             response = requests.post(adresa_stop, json = j)
 
 def f_mineri(adresa,job,adresa_method):
-
+    ses=requests.Session()
 
 ##napraviti def za asnc i sync servere
     if adresa_method == 'sync':
@@ -76,7 +76,7 @@ def f_mineri(adresa,job,adresa_method):
             
             #print("slanje")
             try:
-                response = requests.post(adresa, json = job)#,proxies=proxies,verify=cert)
+                response = ses.post(adresa, json = job)#,proxies=proxies,verify=cert)
                 v1=0
             except Exception as error:
                 pass
@@ -106,7 +106,7 @@ def f_mineri(adresa,job,adresa_method):
                         #session.mount('https://', TLSAdapter())
                         #print("{} c procjera".format(str(c)))
                         try:
-                            response_async = requests.post(adresa_provjere, json = {'broj_servera': 32})#,proxies=proxies,verify=cert)
+                            response_async = ses.post(adresa_provjere, json = {'broj_servera': 32})#,proxies=proxies,verify=cert)
                             v2=0
                         except Exception as error:
                             pass
