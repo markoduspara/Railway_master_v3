@@ -90,7 +90,7 @@ def f_mineri(adresa,job,adresa_method):
 
             while 1:
                 c+=1
-                if c<80:
+                if c<20:
                     #adresa_provjere = 'https://aduspara-middlerandomx.hf.space/provjeri'
                     v2=1
                     while v2==1:
